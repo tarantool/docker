@@ -10,6 +10,7 @@ RUN addgroup -S tarantool \
 # stage where it was defined. To use an arg in multiple stages,
 # each stage must include the ARG instruction
 ARG TNT_VER
+ARG NPROC
 ENV TARANTOOL_VERSION=${TNT_VER} \
     TARANTOOL_DOWNLOAD_URL=https://github.com/tarantool/tarantool.git \
     TARANTOOL_INSTALL_LUADIR=/usr/local/share/tarantool \
@@ -84,7 +85,7 @@ RUN set -x \
         rm /gperftools_alpine.diff; \
         ./autogen.sh; \
         ./configure; \
-        make -j ; \
+        make -j ${NPROC}; \
         cp .libs/libprofiler.so* /usr/local/lib;) \
     && : "---------- pprof for gperftools ----------" \
     && : "To avoid of the issue:" \
@@ -118,7 +119,7 @@ RUN set -x \
              -DENABLE_BACKTRACE:BOOL=ON\
              -DENABLE_DIST:BOOL=ON\
              .) \
-    && make -C /usr/src/tarantool -j\
+    && make -C /usr/src/tarantool -j ${NPROC} \
     && make -C /usr/src/tarantool install \
     && make -C /usr/src/tarantool clean \
     && : "---------- luarocks ----------" \
@@ -172,7 +173,7 @@ RUN set -x \
     && tar -xzf proj.tar.gz -C /usr/src/proj --strip-components=1 \
     && (cd /usr/src/proj; \
         ./configure; \
-        make -j ; \
+        make -j ${NPROC}; \
         make install) \
     && rm -r /usr/src/proj \
     && rm -rf /usr/src/proj \
@@ -183,7 +184,7 @@ RUN set -x \
     && tar -xjf geos.tar.bz2 -C /usr/src/geos --strip-components=1 \
     && (cd /usr/src/geos; \
         ./configure; \
-        make -j ; \
+        make -j ${NPROC}; \
         make install) \
     && rm -r /usr/src/geos \
     && rm -rf /usr/src/geos \
