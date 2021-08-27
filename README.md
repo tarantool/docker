@@ -319,22 +319,23 @@ $ docker run -it tarantool/tarantool:2
 
 Fixed versions:
 
-| Docker tag       | Dockerfile            |
-| ---------------- | --------------------- |
-| 1.10.0 .. 1.10.3 | dockerfile/alpine_3.5 |
-| 1.10.4 .. 1.10.9 | dockerfile/alpine_3.9 |
-| 2.1.0  .. 2.1.2  | dockerfile/alpine_3.5 |
-| 2.1.3            | dockerfile/alpine_3.9 |
-| 2.2.0  .. 2.2.1  | dockerfile/alpine_3.5 |
-| 2.2.2  .. 2.2.3  | dockerfile/alpine_3.9 |
-| 2.3.0            | dockerfile/alpine_3.5 |
-| 2.3.1  .. 2.3.3  | dockerfile/alpine_3.9 |
-| 2.4.0  .. 2.4.3  | dockerfile/alpine_3.9 |
-| 2.5.0  .. 2.5.3  | dockerfile/alpine_3.9 |
-| 2.6.0  .. 2.6.3  | dockerfile/alpine_3.9 |
-| 2.7.0  .. 2.7.2  | dockerfile/alpine_3.9 |
-| 2.8.0  .. 2.8.1  | dockerfile/alpine_3.9 |
-| 2.9.0            | dockerfile/alpine_3.9 |
+| Docker tag        | Dockerfile            |
+| ----------------- | --------------------- |
+| 1.10.0 .. 1.10.3  | dockerfile/alpine_3.5 |
+| 1.10.4 .. 1.10.11 | dockerfile/alpine_3.9 |
+| 2.1.0  .. 2.1.2   | dockerfile/alpine_3.5 |
+| 2.1.3             | dockerfile/alpine_3.9 |
+| 2.2.0  .. 2.2.1   | dockerfile/alpine_3.5 |
+| 2.2.2  .. 2.2.3   | dockerfile/alpine_3.9 |
+| 2.3.0             | dockerfile/alpine_3.5 |
+| 2.3.1  .. 2.3.3   | dockerfile/alpine_3.9 |
+| 2.4.0  .. 2.4.3   | dockerfile/alpine_3.9 |
+| 2.5.0  .. 2.5.3   | dockerfile/alpine_3.9 |
+| 2.6.0  .. 2.6.3   | dockerfile/alpine_3.9 |
+| 2.7.0  .. 2.7.3   | dockerfile/alpine_3.9 |
+| 2.8.0  .. 2.8.2   | dockerfile/alpine_3.9 |
+| 2.9.0             | dockerfile/alpine_3.9 |
+| 2.10.0-beta1      | dockerfile/alpine_3.9 |
 
 Rolling versions:
 
