@@ -291,6 +291,15 @@ Default is 3600 (every 1 hour).
 
 Optional. When set to "true" Tarantool tries to continue if there is an error while reading a snapshot file or a write-ahead log file. Skips invalid records, reads as much data as possible, print a warning in console and start the database.
 
+### `TARANTOOL_LOG_FORMAT`
+
+Optional. There are two possible log formats - 'plain' (default) or 'json' (with more detail and with json labels).
+More details can be found in [log module reference](https://www.tarantool.io/en/doc/latest/reference/configuration/#confval-log_format)
+
+### `TARANTOOL_LOG_LEVEL`
+
+Optional. Default value is 5 (that means INFO). More details can be found in [logging log levels configuration](https://www.tarantool.io/en/doc/latest/reference/configuration/#cfg-logging-log-level)
+
 # Reporting problems and getting help
 
 You can report problems and request
