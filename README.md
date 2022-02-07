@@ -136,7 +136,7 @@ unix socket in the container to connect to Tarantool. But it requires
 you to have direct access to the container.
 
 If you need a remote console via TCP/IP, use `tarantoolctl` utility
-as explained [here](https://tarantool.org/doc/book/administration.html#administration-tarantoolctl-connect).
+as explained [here](https://www.tarantool.io/en/doc/latest/reference/tarantoolctl/).
 
 ## Start a master-master replica set
 
