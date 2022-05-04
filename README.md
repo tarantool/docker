@@ -331,7 +331,7 @@ Fixed versions:
 | Docker tag        | Dockerfile            |
 | ----------------- | --------------------- |
 | 1.10.0 .. 1.10.3  | dockerfile/alpine_3.5 |
-| 1.10.4 .. 1.10.12 | dockerfile/alpine_3.9 |
+| 1.10.4 .. 1.10.13 | dockerfile/alpine_3.9 |
 | 2.1.0  .. 2.1.2   | dockerfile/alpine_3.5 |
 | 2.1.3             | dockerfile/alpine_3.9 |
 | 2.2.0  .. 2.2.1   | dockerfile/alpine_3.5 |
@@ -342,7 +342,7 @@ Fixed versions:
 | 2.5.0  .. 2.5.3   | dockerfile/alpine_3.9 |
 | 2.6.0  .. 2.6.3   | dockerfile/alpine_3.9 |
 | 2.7.0  .. 2.7.3   | dockerfile/alpine_3.9 |
-| 2.8.0  .. 2.8.3   | dockerfile/alpine_3.9 |
+| 2.8.0  .. 2.8.4   | dockerfile/alpine_3.9 |
 | 2.9.0             | dockerfile/alpine_3.9 |
 | 2.10.0-beta1      | dockerfile/alpine_3.9 |
 | 2.10.0-beta2      | dockerfile/alpine_3.9 |
