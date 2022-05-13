@@ -37,6 +37,7 @@ COPY files/gperftools_alpine.diff /
 ARG ENABLE_BUNDLED_LIBYAML \
     LUAJIT_DISABLE_SYSPROF \
     LUAJIT_ENABLE_GC64
+
 RUN set -x \
     && apk add --no-cache --virtual .run-deps.1 \
         libstdc++ \
@@ -61,6 +62,7 @@ RUN set -x \
         file \
         readline-dev \
         openssl-dev \
+        libressl-dev \
         yaml-dev \
         bsd-compat-headers \
         lz4-dev \
@@ -82,32 +84,14 @@ RUN set -x \
     && : "---------- gperftools ----------" \
     && mkdir -p /usr/src/gperftools \
     && git clone "$GPERFTOOLS_REPO" /usr/src/gperftools \
-    && git -C /usr/src/gperftools checkout "$GPERFTOOLS_TAG" \
     && (cd /usr/src/gperftools; \
-        patch -p1 < /gperftools_alpine.diff; \
-        rm /gperftools_alpine.diff; \
         ./autogen.sh; \
-        ./configure; \
+        ./configure --enable-libunwind --enable-frame-pointers; \
         make -j ${NPROC}; \
-        cp .libs/libprofiler.so* /usr/local/lib;) \
+        cp .libs/libprofiler.so* /usr/local/lib/) \
     && : "---------- pprof for gperftools ----------" \
-    && : "To avoid of the issue:" \
-    && : "'The master branch is Incompatible with go version < 1.13 #538'" \
-    && : "https://github.com/google/pprof/issues/538" \
-    && : "use latest workable commits with the old GO versions" \
-    && ( export GOPATH=/root/go && \
-       export PATH=${GOPATH}/bin:/usr/local/go/bin:$PATH && \
-       export GOBIN=$GOROOT/bin && \
-       mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
-       go get github.com/google/pprof || : && \
-       cd /root/go/src/github.com/google/pprof && \
-       git checkout 160c4290d1d8cee56daa51d7ba5d223291d392aa && \
-       ( cd /root/go/src/github.com/chzyer/readline && \
-       git checkout f6d7a1f6fbf35bbf9beb80dc63c56a29dcfb759f ) && \
-       ( cd /root/go/src/github.com/ianlancetaylor/demangle && \
-       git checkout 039b1ae3a3406573c84daaf91166d70ad2bc0519 ) && \
-       go build && \
-       cp pprof /usr/local/bin/pprof ) \
+    && go install github.com/google/pprof@latest \
+    && export PATH="/root/go/bin:${PATH}" \
     && : "---------- tarantool ----------" \
     && mkdir -p /usr/src/tarantool \
     && git clone "$TARANTOOL_DOWNLOAD_URL" /usr/src/tarantool \
@@ -211,22 +195,22 @@ RUN set -x \
     && ${ROCKS_INSTALLER} install http $LUAROCK_HTTP_VERSION \
     && : "pg" \
     && ${ROCKS_INSTALLER} install pg $LUAROCK_TARANTOOL_PG_VERSION \
-    && : "mysql" \
-    && ${ROCKS_INSTALLER} install mysql $LUAROCK_TARANTOOL_MYSQL_VERSION \
+#    && : "mysql" \
+#    && ${ROCKS_INSTALLER} install mysql $LUAROCK_TARANTOOL_MYSQL_VERSION \
     && : "memcached" \
     && ${ROCKS_INSTALLER} install memcached $LUAROCK_MEMCACHED_VERSION \
     && : "metrics" \
     && ${ROCKS_INSTALLER} install metrics $LUAROCK_METRICS_VERSION \
     && : "prometheus" \
     && ${ROCKS_INSTALLER} install prometheus $LUAROCK_TARANTOOL_PROMETHEUS_VERSION \
-    && : "mqtt" \
-    && ${ROCKS_INSTALLER} install mqtt $LUAROCK_TARANTOOL_MQTT_VERSION \
-    && : "gis" \
-    && ${ROCKS_INSTALLER} install gis $LUAROCK_TARANTOOL_GIS_VERSION \
+#    && : "mqtt" \
+#    && ${ROCKS_INSTALLER} install mqtt $LUAROCK_TARANTOOL_MQTT_VERSION \
+#    && : "gis" \
+#    && ${ROCKS_INSTALLER} install gis $LUAROCK_TARANTOOL_GIS_VERSION \
     && : "gperftools" \
-    && ${ROCKS_INSTALLER} install gperftools $LUAROCK_TARANTOOL_GPERFTOOLS_VERSION \
-    && : "---------- remove build deps ----------" \
-    && apk del .build-deps.2
+    && ${ROCKS_INSTALLER} install gperftools $LUAROCK_TARANTOOL_GPERFTOOLS_VERSION
+#    && : "---------- remove build deps ----------" \
+#    && apk del .build-deps.2
 
 # gh-170: needed for luarocks
 RUN apk update \
