@@ -2,6 +2,8 @@ TNT_VER=$(shell cat versions/${OS}_${DIST}_${VER})
 ROCKS_INSTALLER?='tarantoolctl rocks'
 ENABLE_BUNDLED_LIBYAML?='ON'
 IMAGE?=tarantool/tarantool
+LUAJIT_DISABLE_SYSPROF?=OFF
+LUAJIT_ENABLE_GC64?=OFF
 NPROC?=4
 
 build:
@@ -10,6 +12,8 @@ build:
 		--build-arg ROCKS_INSTALLER=${ROCKS_INSTALLER} \
 		--build-arg ENABLE_BUNDLED_LIBYAML=${ENABLE_BUNDLED_LIBYAML} \
 		--build-arg TNT_VER=${TNT_VER} \
+		--build-arg LUAJIT_DISABLE_SYSPROF=${LUAJIT_DISABLE_SYSPROF} \
+		--build-arg LUAJIT_ENABLE_GC64=${LUAJIT_ENABLE_GC64} \
 		--build-arg NPROC=${NPROC} \
 		--build-arg BASE_IMAGE="${ARCH}${OS}:${DIST}" \
 		--progress=plain \

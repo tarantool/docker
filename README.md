@@ -346,6 +346,7 @@ Fixed versions:
 | 2.9.0             | dockerfile/alpine_3.9 |
 | 2.10.0-beta1      | dockerfile/alpine_3.9 |
 | 2.10.0-beta2      | dockerfile/alpine_3.9 |
+| 2.10.0-rc1        | dockerfile/alpine_3.9 |
 
 Rolling versions:
 
