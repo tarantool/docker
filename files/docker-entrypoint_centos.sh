@@ -3,7 +3,7 @@ set -e
 
 # first arg is `-f` or `--some-option`
 # or first arg is `something.conf`
-if [ "${1:0:1}" = '-' ]; then
+if [ " -${1#?}" = " $1" ]; then
     set -- tarantool "$@"
 fi
 
