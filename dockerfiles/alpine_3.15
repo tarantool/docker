@@ -203,6 +203,8 @@ RUN set -x \
     && ${ROCKS_INSTALLER} install http $LUAROCK_HTTP_VERSION \
     && : "pg" \
     && ${ROCKS_INSTALLER} install pg $LUAROCK_TARANTOOL_PG_VERSION \
+    && : "mysql" \
+    && ${ROCKS_INSTALLER} install mysql $LUAROCK_TARANTOOL_MYSQL_VERSION \
     && : "memcached" \
     && ${ROCKS_INSTALLER} install memcached $LUAROCK_MEMCACHED_VERSION \
     && : "metrics" \
