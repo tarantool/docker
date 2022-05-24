@@ -32,7 +32,6 @@ ARG ENABLE_BUNDLED_LIBYAML \
 RUN set -x \ 
     && apt update && apt -y --no-install-recommends install \
     libgoogle-perftools4 \
-    deborphan \
     unzip \
     libgeos-dev \
     libsasl2-dev \
