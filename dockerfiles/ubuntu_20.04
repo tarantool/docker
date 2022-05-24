@@ -73,9 +73,6 @@ COPY files/docker-entrypoint_centos.sh /usr/local/bin/docker-entrypoint.sh
 COPY files/console /usr/local/bin/
 COPY files/tarantool_is_up /usr/local/bin/
 COPY files/tarantool.default /usr/local/etc/default/tarantool
-COPY files/test-rocks.lua /usr/local/bin/
-
-RUN tarantool test /usr/local/bin/test-rocks.lua
 
 RUN chown tarantool /etc/tarantool && ln -s /usr/local/bin/docker-entrypoint.sh /entrypoint.sh
 
