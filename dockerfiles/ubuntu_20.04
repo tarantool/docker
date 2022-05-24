@@ -1,6 +1,4 @@
-ARG BASE_IMAGE
 FROM ubuntu:20.04
-#FROM ${BASE_IMAGE}
 
 RUN useradd --user-group --create-home --no-log-init --shell /bin/bash tarantool
 
@@ -59,7 +57,7 @@ RUN set -x \
     && tarantoolctl rocks install mqtt $LUAROCK_TARANTOOL_MQTT_VERSION \
     && tarantoolctl rocks install gis $LUAROCK_TARANTOOL_GIS_VERSION \
     && tarantoolctl rocks install gperftools $LUAROCK_TARANTOOL_GPERFTOOLS_VERSION \
-    && apt purge unzip \
+    && apt purge -y unzip \
     && apt -y autoremove \
     && rm -rf /var/lib/apt/lists/
 
