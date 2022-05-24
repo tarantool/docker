@@ -29,7 +29,8 @@ ARG ENABLE_BUNDLED_LIBYAML \
     LUAJIT_DISABLE_SYSPROF \
     LUAJIT_ENABLE_GC64
 
-RUN set -x && apt update && apt -y --no-install-recommends install libgoogle-perftools4 \
+RUN set -x \ 
+    && apt update && apt -y --no-install-recommends install \
     libgoogle-perftools4 \
     deborphan \
     unzip \
@@ -44,10 +45,11 @@ RUN set -x && apt update && apt -y --no-install-recommends install libgoogle-per
     ca-certificates \
     && ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone \
     && ln -s /usr/lib/x86_64-linux-gnu/libprofiler.so.0.4.18 /usr/lib/x86_64-linux-gnu/libprofiler.so \
-    && curl -L https://tarantool.io/pre-release/2/installer.sh | bash \
+    && curl -L https://tarantool.io/release/2/installer.sh | bash \
     && apt -y install tarantool \
     && apt clean \
-    && set -x && tarantoolctl rocks install lua-term \
+    && set -x \
+    && tarantoolctl rocks install lua-term \
     && tarantoolctl rocks install avro-schema $LUAROCK_AVRO_SCHEMA_VERSION \
     && tarantoolctl rocks install expirationd $LUAROCK_EXPERATIOND_VERSION \
     && tarantoolctl rocks install queue $LUAROCK_QUEUE_VERSION \
@@ -71,10 +73,11 @@ COPY files/docker-entrypoint_centos.sh /usr/local/bin/docker-entrypoint.sh
 COPY files/console /usr/local/bin/
 COPY files/tarantool_is_up /usr/local/bin/
 COPY files/tarantool.default /usr/local/etc/default/tarantool
+COPY files/test-rocks.lua /usr/local/bin/
+
+RUN tarantool test /usr/local/bin/test-rocks.lua
 
 RUN chown tarantool /etc/tarantool && ln -s /usr/local/bin/docker-entrypoint.sh /entrypoint.sh
-
-#USER tarantool
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
