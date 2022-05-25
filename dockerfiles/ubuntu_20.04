@@ -6,9 +6,9 @@ RUN useradd --user-group --create-home --no-log-init --shell /bin/bash tarantool
 # stage where it was defined. To use an arg in multiple stages,
 # each stage must include the ARG instruction
 ARG TNT_VER \
-    GC64=false
+    GC64
 
-ENV GC64=${GC64} \
+ENV GC64=${GC64:-false} \
     TARANTOOL_VERSION=${TNT_VER:-2} \
     LUAROCK_VSHARD_VERSION=0.1.19 \
     LUAROCK_AVRO_SCHEMA_VERSION=3.0.6 \
