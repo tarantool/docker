@@ -1,15 +1,12 @@
-FROM ubuntu:20.04
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}ubuntu:20.04
+LABEL org.opencontainers.image.authors="artembo@me.com; piligrim@rootnix.net"
 
-RUN useradd --user-group --create-home --no-log-init --shell /bin/bash tarantool
-
-# An ARG instruction goes out of scope at the end of the build
-# stage where it was defined. To use an arg in multiple stages,
-# each stage must include the ARG instruction
 ARG TNT_VER \
     GC64
 
 ENV GC64=${GC64:-false} \
-    TARANTOOL_VERSION=${TNT_VER:-2} \
+    TARANTOOL_URL=https://www.tarantool.io/release/${TNT_VER:-2}/installer.sh \
     LUAROCK_VSHARD_VERSION=0.1.19 \
     LUAROCK_AVRO_SCHEMA_VERSION=3.0.6 \
     LUAROCK_EXPERATIOND_VERSION=1.1.1 \
@@ -25,10 +22,12 @@ ENV GC64=${GC64:-false} \
     LUAROCK_TARANTOOL_PROMETHEUS_VERSION=1.0.4 \
     LUAROCK_TARANTOOL_GPERFTOOLS_VERSION=1.0.1
 
-RUN set -x \ 
+RUN set -x \
+    && useradd --user-group --create-home --no-log-init --shell /bin/bash tarantool \
     && apt update && apt -y --no-install-recommends --no-install-suggests install \
     libgoogle-perftools4 \
     unzip \
+    luarocks \
     libgeos-dev \
     libsasl2-dev \
     libssl-dev \
@@ -39,8 +38,8 @@ RUN set -x \
     curl \
     ca-certificates \
     && ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone \
-    && ln -s /usr/lib/x86_64-linux-gnu/libprofiler.so.0.4.18 /usr/lib/x86_64-linux-gnu/libprofiler.so \
-    && curl -L https://tarantool.io/release/${TARANTOOL_VERSION}/installer.sh | bash \
+    && ln -s /usr/lib/$(arch)-linux-gnu/libprofiler.so.0.4.18 /usr/lib/$(arch)-linux-gnu/libprofiler.so \
+    && curl -L $TARANTOOL_URL | bash \
     && apt -y install tarantool \
     && apt clean \
     && set -x \
@@ -59,7 +58,7 @@ RUN set -x \
     && tarantoolctl rocks install mqtt $LUAROCK_TARANTOOL_MQTT_VERSION \
     && tarantoolctl rocks install gis $LUAROCK_TARANTOOL_GIS_VERSION \
     && tarantoolctl rocks install gperftools $LUAROCK_TARANTOOL_GPERFTOOLS_VERSION \
-    && apt purge -y unzip curl \
+    && apt purge -y unzip curl git gcc cmake \
     && apt -y autoremove \
     && rm -rf /var/lib/apt/lists/
 

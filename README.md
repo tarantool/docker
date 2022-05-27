@@ -358,10 +358,12 @@ Rolling versions:
 
 Special builds:
 
-| Docker tag  | Dockerfile          |
-| ----------- | ------------------- |
-| 1.x-centos7 | dockerfile/centos_7 |
-| 2.x-centos7 | dockerfile/centos_7 |
+| Docker tag        | Dockerfile              |
+| ----------------- | ----------------------- |
+| 2.10.0-centos7    | dockerfile/centos_7     |
+| 2.10.0-ubuntu     | dockerfile/ubuntu_20.04 |
+| 1.x-centos7       | dockerfile/centos_7     |
+| 2.x-centos7       | dockerfile/centos_7     |
 
 ## Release policy
 
