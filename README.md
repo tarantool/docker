@@ -157,12 +157,12 @@ $ docker run \
 ```
 
 This will start an instance of Tarantool and expose it on
-port 3301. Note, that by default there is no password protection,
+port 3301. Note that by default there is no password protection,
 so don't expose this instance to the outside world.
 
-In this case, when there is no lua code provided, the entry point
-script initializes database using a sane set of defaults. Some of them
-can be tuned with environment variables (see below).
+In this case, as there is no Lua code provided, the entrypoint
+script initializes the database using a reasonable set of defaults. Some of them
+can be tweaked with environment variables (see below).
 
 ### Start a secure Tarantool instance
 
@@ -175,11 +175,11 @@ $ docker run \
   tarantool/tarantool
 ```
 
-This starts an instance of Tarantool, disables guest login and
-creates user named `myusername` with admin privileges and password
+This starts an instance of Tarantool, disables guest login, and
+creates a user named `myusername` with admin privileges and the password
 `mysecretpassword`.
 
-As with the previous example, database is initialized automatically.
+As in the previous example, the database is initialized automatically.
 
 ### Connect to a running Tarantool instance
 
@@ -188,14 +188,14 @@ $ docker exec -t -i mytarantool console
 ```
 
 This will open an interactive admin console on the running instance
-named `mytarantool`. You may safely detach from it anytime, the server
+named `mytarantool`. You can safely detach from it anytime, the server
 will continue running.
 
 This `console` doesn't require authentication, because it uses a local
-unix socket in the container to connect to Tarantool. But it requires
+Unix socket in the container to connect to Tarantool. However, it requires
 you to have direct access to the container.
 
-If you need a remote console via TCP/IP, use `tarantoolctl` utility
+If you need to access a remote console via TCP/IP, use the `tarantoolctl` utility
 as explained [here](https://www.tarantool.io/en/doc/latest/reference/tarantoolctl/).
 
 ### Start a master-master replica set
@@ -274,9 +274,9 @@ Then build it with:
 $ docker build -t company/appname:tag .
 ```
 
-Please pay attention to the format of `CMD`: unless it is specified in
-square brackets, the "wrapper" entry point that our Docker image
-provides will not be called. It will lead to inability to configure
+Please pay attention to the format of `CMD`. Unless it is specified in
+square brackets, the `wrapper` entrypoint that our Docker image
+provides will not be called. In this case, you will not be able to configure
 your instance using environment variables.
 
 We recommend using an exact tag to build from,
@@ -300,15 +300,15 @@ details.
 ### `TARANTOOL_USER_NAME`
 
 Setting this variable allows you to pick the name of the user that is
-utilized for remote connections. By default, it is 'guest'. Please
-note that since guest user in Tarantool can't have a password, it is
+utilized for remote connections. By default, it is `guest`. Please
+note that since the `guest` user in Tarantool can't have a password, it is
 highly recommended that you change it.
 
 ### `TARANTOOL_USER_PASSWORD`
 
 For security reasons, it is recommended that you never leave this
 variable unset. This environment variable sets the user's password for
-Tarantool. In the above example, it is set to "mysecretpassword".
+Tarantool. In the above example, it is set to `mysecretpassword`.
 
 ### `TARANTOOL_PORT`
 
@@ -324,9 +324,9 @@ and expose prometheus `metrics` endpoint with common metrics
 ### `TARANTOOL_REPLICATION`
 
 Optional. Comma-separated list of URIs to treat as replication
-sources. Upon the start, Tarantool will attempt to connect to
-those instances, fetch the data snapshot and start replicating
-transaction logs. In other words, it will become a slave. For the
+sources. Upon start, Tarantool will attempt to connect to
+those instances, fetch the data snapshot, and start replicating
+transaction logs. In other words, it will become a slave. For a
 multi-master configuration, other participating instances of
 Tarantool should be started with the same `TARANTOOL_REPLICATION`.
 (NB: applicable only to versions later than 1.7)
