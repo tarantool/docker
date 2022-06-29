@@ -4,7 +4,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [What is Tarantool](#what-is-tarantool)
-- [Quickstart](#quickstart)
+- [Quick start](#quickstart)
 - [What's on board](#whats-on-board)
   - [Included modules](#included-modules)
   - [Data directories](#data-directories)
@@ -17,7 +17,7 @@
   - [Start a master-master replica set](#start-a-master-master-replica-set)
   - [Add application code with a volume mount](#add-application-code-with-a-volume-mount)
   - [Build your own images](#build-your-own-images)
-- [Environment Variables](#environment-variables)
+- [Environment variables](#environment-variables)
   - [`TARANTOOL_USER_NAME`](#tarantool_user_name)
   - [`TARANTOOL_USER_PASSWORD`](#tarantool_user_password)
   - [`TARANTOOL_PORT`](#tarantool_port)
@@ -44,11 +44,11 @@
 
 ## What is Tarantool
 
-Tarantool is an in-memory computing platform which combines
+Tarantool is an in-memory computing platform that combines
 a Lua application server and a database management system.
 Read more about Tarantool at [tarantool.io](https://www.tarantool.io/en/developers/).
 
-## Quickstart
+## Quick start
 
 To try out Tarantool, run this command:
 
@@ -58,18 +58,18 @@ $ docker run --rm -t -i tarantool/tarantool
 
 It will create a one-off Tarantool instance and open an interactive
 console.
-From there you can either type `tutorial()` or follow the
+From there, you can either type `tutorial()` in the console or follow the
 [documentation](https://www.tarantool.io/en/doc/latest/getting_started/getting_started_db/#using-a-docker-image).
 
 ## What's on board
 
 The `tarantool/tarantool` images contain the Tarantool executable
 and a combination of [Lua modules](#included-modules) and utilities often used in production.
-They are designed to be a building block for modern services, and as such have a few
+Designed as a building block for modern services, these modules and utilities are based on a few
 design choices that set them apart from the systemd-controlled Tarantool.
-We check these modules for compatibility with the Tarantool version included in the image.
+We check all these extensions for compatibility with the Tarantool version included in the image.
 
-These images come in three flavors, based on three different images: `alpine:3.15`, `centos:7`
+The Docker images come in three flavors, based on three different images: `alpine:3.15`, `centos:7`
 and `ubuntu:20.04`. Check them out:
 
 ```console
@@ -78,13 +78,13 @@ $ docker run --rm -t -i tarantool/tarantool:2.10.0-centos7
 $ docker run --rm -t -i tarantool/tarantool:2.10.0-ubuntu
 ```
 
-Entry-point script in each of these these images uses
+The entrypoint script in each of these images uses
 [environment variables](#environment-variables)
 to set various configuration options,
 such as replication sources, memory limits, and so on.
 If specified, the environment variables override the settings provided in your code.
-This way you can use `docker compose` or
-other orchestration and deployment tools to set those options.
+This way, you can set options using `docker compose` or
+other orchestration and deployment tools.
 
 There are also a few [convenience tools](#convenience-tools) that make use of the fact that there
 is only one Tarantool instance running in the container.
@@ -98,9 +98,9 @@ The following Lua modules are included in the build:
 - [curl](https://github.com/tarantool/curl): HTTP client based on libcurl.
 - [expirationd](https://github.com/tarantool/expirationd): Automatically delete tuples based on expiration time.
 - [gis](https://github.com/tarantool/gis): Store and query geospatial data.
-- [gperftools](https://github.com/tarantool/gperftools): Collect CPU profile to find bottlenecks in your code.
-- [http](https://github.com/tarantool/http): Embedded HTTP server with flask-style routing support.
-- [memcached](https://github.com/tarantool/memcached): Access Tarantool as if it was a Memcached instance.
+- [gperftools](https://github.com/tarantool/gperftools): Collect a CPU profile to find bottlenecks in your code.
+- [http](https://github.com/tarantool/http): Embedded HTTP server with Flask-style routing support.
+- [memcached](https://github.com/tarantool/memcached): Access Tarantool as if it was a memcached instance.
 - [metrics](https://github.com/tarantool/metrics): Metric collection library for Tarantool.
 - [mqtt](https://github.com/tarantool/mqtt): Client for MQTT message brokers.
 - [mysql](https://github.com/tarantool/mysql): Query MySQL right from Tarantool.
@@ -115,7 +115,7 @@ Open an issue [on our GitHub](https://github.com/tarantool/docker).
 
 ### Data directories
 
-Mount a volume to these directories to make use of them.
+Mount these directories as volumes:
 
 - `/var/lib/tarantool` contains operational data
   (snapshots, xlogs and vinyl runs).
@@ -124,19 +124,19 @@ Mount a volume to these directories to make use of them.
 
 ### Convenience tools
 
-- `console`: execute it without arguments to open an administrative
+- `console`: Execute without arguments to open an administrative
   console to a running Tarantool instance.
 
-- `tarantool_is_up`: returns `0` if Tarantool has been initialized and
+- `tarantool_is_up`: Returns `0` if Tarantool has been initialized and
   is operating normally.
 
-- `tarantool_set_config.lua`: allows you to dynamically change certain
+- `tarantool_set_config.lua`: Allows you to dynamically change certain
   settings without the need to recreate containers.
 
 ## Versions, tags, and release policy
 
 The images are built and published on Docker Hub
-for each Tarantool release, and also for some beta
+for each Tarantool release as well as for some beta
 and release candidate versions.
 
 There are three variants built from different base images:
@@ -252,9 +252,9 @@ $ docker run \
   tarantool /opt/tarantool/app.lua
 ```
 
-Where `/path/to/my/app` is a host directory containing lua code
+Here, `/path/to/my/app` is the host directory containing Lua code
 and `app.lua` is the entry point of your application.
-Note that for your code to actually run, you must execute the main script explicitly,
+Note that for your code to run, you must execute the main script explicitly,
 which is done in the last line.
 
 ### Build your own images
@@ -279,8 +279,8 @@ square brackets, the `wrapper` entrypoint that our Docker image
 provides will not be called. In this case, you will not be able to configure
 your instance using environment variables.
 
-We recommend using an exact tag to build from,
-that is, `2.10.0` or `2.10.0-centos7`, but not just
+We recommend building from an image with a precise tag,
+that is, `2.10.0` or `2.10.0-centos7`, not
 `2.10` or `latest`.
 This way you will have more control over the updates of
 Tarantool and other dependencies of your application.
@@ -317,8 +317,8 @@ incoming connections on a specific port. Default is `3301`.
 
 ### `TARANTOOL_PROMETHEUS_DEFAULT_METRICS_PORT`
 
-Optional. If specified tarantool will start http server on given port 
-and expose prometheus `metrics` endpoint with common metrics
+Optional. If specified, Tarantool will start an HTTP server on the provided port
+and expose the Prometheus `metrics` endpoint with common metrics
 (fibers, memory, network, replication, etc.).
 
 ### `TARANTOOL_REPLICATION`
@@ -329,7 +329,7 @@ those instances, fetch the data snapshot, and start replicating
 transaction logs. In other words, it will become a slave. For a
 multi-master configuration, other participating instances of
 Tarantool should be started with the same `TARANTOOL_REPLICATION`.
-(NB: applicable only to versions later than 1.7)
+(NB: Applicable only to versions later than 1.7.)
 
 Example:
 
@@ -346,7 +346,7 @@ megabytes).
 
 Optional. Used as the multiplier for computing the sizes of memory
 chunks that tuples are stored in. A lower value may result in less
-wasted memory depending on the total amount of memory available
+wasted memory, depending on the total amount of memory available
 and the distribution of item sizes. Default is `1.05`.
 
 ### `TARANTOOL_MEMTX_MAX_TUPLE_SIZE`
@@ -362,7 +362,7 @@ decreased if most of the tuples are very small. Default is `16`.
 
 ### `TARANTOOL_CHECKPOINT_INTERVAL`
 
-Optional. Specifies how often snapshots will be made, in seconds.
+Optional. Specifies how often snapshots are made, in seconds.
 Default is `3600` (every 1 hour).
 
 ### `TARANTOOL_FORCE_RECOVERY`
@@ -386,7 +386,7 @@ More details can be found in the
 
 Optional. Default value is 5 (that means INFO).
 More details can be found in
-[logging log levels configuration](https://www.tarantool.io/en/doc/latest/reference/configuration/#cfg-logging-log-level).
+[log level configuration](https://www.tarantool.io/en/doc/latest/reference/configuration/#cfg-logging-log-level).
 
 ## Contributing
 
@@ -395,7 +395,7 @@ More details can be found in
 You can report problems and request
 features [on our GitHub](https://github.com/tarantool/docker).
 
-Alternatively you may get help on our [Telegram channel](https://t.me/tarantool).
+Alternatively, you may get help on our [Telegram channel](https://t.me/tarantool).
 
 ### How to contribute
 
