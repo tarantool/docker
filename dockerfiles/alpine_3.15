@@ -1,5 +1,4 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE}
+FROM alpine:3.15
 LABEL org.opencontainers.image.authors="artembo@me.com; piligrim@rootnix.net"
 
 RUN addgroup -S tarantool \

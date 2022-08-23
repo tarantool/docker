@@ -15,7 +15,6 @@ build:
 		--build-arg LUAJIT_DISABLE_SYSPROF=${LUAJIT_DISABLE_SYSPROF} \
 		--build-arg LUAJIT_ENABLE_GC64=${LUAJIT_ENABLE_GC64} \
 		--build-arg NPROC=${NPROC} \
-		--build-arg BASE_IMAGE="${ARCH}${OS}:${DIST}" \
 		--progress=plain \
 		-t ${IMAGE}:${TAG} -f dockerfiles/${OS}_${DIST} .
 	docker run --rm --name tarantool_${TAG} -p ${PORT}:${PORT} -d ${IMAGE}:${TAG}

@@ -1,5 +1,4 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE}ubuntu:20.04
+FROM ubuntu:20.04
 LABEL org.opencontainers.image.authors="artembo@me.com; piligrim@rootnix.net"
 
 ARG TNT_VER \

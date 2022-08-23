@@ -1,5 +1,4 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE}centos:7
+FROM centos:7
 LABEL org.opencontainers.image.authors="artembo@me.com; piligrim@rootnix.net"
 
 ARG TNT_VER \
