@@ -36,6 +36,7 @@ repo_gpgcheck = 1\n'\
 >> /etc/yum.repos.d/pg.repo \
     && groupadd tarantool \
     && adduser -g tarantool tarantool \
+    && if [[ $LUAJIT_ENABLE_GC64 -eq 'OFF' ]]; then export GC64=false; else export GC64=true; fi\
     && curl $TARANTOOL_INSTALLER_URL | bash \
     && : "---------- tarantool ----------" \
     && yum install -y  \

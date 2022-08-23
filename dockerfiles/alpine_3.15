@@ -35,7 +35,7 @@ COPY files/gperftools_alpine.diff /
 
 ARG ENABLE_BUNDLED_LIBYAML \
     LUAJIT_DISABLE_SYSPROF \
-    LUAJIT_ENABLE_GC64
+    GC64
 
 RUN set -x \
     && apk add --no-cache --virtual .run-deps.1 \
@@ -111,7 +111,7 @@ RUN set -x \
              -DENABLE_BUNDLED_LIBYAML:BOOL=${ENABLE_BUNDLED_LIBYAML}\
              -DENABLE_BACKTRACE:BOOL=ON\
              -DLUAJIT_DISABLE_SYSPROF:BOOL=${LUAJIT_DISABLE_SYSPROF} \
-             -DLUAJIT_ENABLE_GC64:BOOL=${LUAJIT_ENABLE_GC64} \
+             -DLUAJIT_ENABLE_GC64:BOOL=${GC64} \
              -DENABLE_DIST:BOOL=ON\
              .) \
     && make -C /usr/src/tarantool -j ${NPROC} \

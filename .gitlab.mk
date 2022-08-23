@@ -3,7 +3,7 @@ ROCKS_INSTALLER?='tarantoolctl rocks'
 ENABLE_BUNDLED_LIBYAML?='ON'
 IMAGE?=tarantool/tarantool
 LUAJIT_DISABLE_SYSPROF?=OFF
-LUAJIT_ENABLE_GC64?=OFF
+GC64?=OFF
 NPROC?=4
 
 build:
@@ -13,7 +13,7 @@ build:
 		--build-arg ENABLE_BUNDLED_LIBYAML=${ENABLE_BUNDLED_LIBYAML} \
 		--build-arg TNT_VER=${TNT_VER} \
 		--build-arg LUAJIT_DISABLE_SYSPROF=${LUAJIT_DISABLE_SYSPROF} \
-		--build-arg LUAJIT_ENABLE_GC64=${LUAJIT_ENABLE_GC64} \
+		--build-arg GC64=${GC64} \
 		--build-arg NPROC=${NPROC} \
 		--progress=plain \
 		-t ${IMAGE}:${TAG} -f dockerfiles/${OS}_${DIST} .

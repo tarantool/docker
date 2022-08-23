@@ -38,6 +38,7 @@ RUN set -x \
     ca-certificates \
     && ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone \
     && ln -s /usr/lib/$(arch)-linux-gnu/libprofiler.so.0.4.18 /usr/lib/$(arch)-linux-gnu/libprofiler.so \
+    && if [[ $LUAJIT_ENABLE_GC64 -eq 'OFF' ]]; then export GC64=false; else export GC64=true; fi\
     && curl -L $TARANTOOL_URL | bash \
     && apt -y install tarantool \
     && apt clean \
