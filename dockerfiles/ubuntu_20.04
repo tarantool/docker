@@ -4,8 +4,8 @@ LABEL org.opencontainers.image.authors="artembo@me.com; piligrim@rootnix.net"
 ARG TNT_VER \
     GC64
 
-ENV GC64=${GC64:-false} \
-    TARANTOOL_URL=https://www.tarantool.io/release/${TNT_VER:-2}/installer.sh \
+ENV GC64=${GC64:-OFF} \
+    TARANTOOL_VERSION=${TNT_VER} \
     LUAROCK_VSHARD_VERSION=0.1.20 \
     LUAROCK_AVRO_SCHEMA_VERSION=3.0.6 \
     LUAROCK_EXPERATIOND_VERSION=1.1.1 \
@@ -25,6 +25,7 @@ RUN set -x \
     && useradd --user-group --create-home --no-log-init --shell /bin/bash tarantool \
     && apt update && apt -y --no-install-recommends --no-install-suggests install \
     libgoogle-perftools4 \
+    lsb-release \
     unzip \
     luarocks \
     libgeos-dev \
@@ -35,14 +36,23 @@ RUN set -x \
     libproj-dev \
     gosu \
     curl \
+    gnupg2 \
     ca-certificates \
+    apt-transport-https \
     && ln -snf /usr/share/zoneinfo/UTC /etc/localtime && echo UTC > /etc/timezone \
     && ln -s /usr/lib/$(arch)-linux-gnu/libprofiler.so.0.4.18 /usr/lib/$(arch)-linux-gnu/libprofiler.so \
-    && if [[ $LUAJIT_ENABLE_GC64 -eq 'OFF' ]]; then export GC64=false; else export GC64=true; fi\
-    && curl -L $TARANTOOL_URL | bash \
-    && apt -y install tarantool \
+    && if [ "$GC64" = "OFF" ]; then export gc64=""; else export gc64="-gc64"; fi \
+    && curl -L https://download.tarantool.org/tarantool/release/series-2/gpgkey | apt-key add - \
+    && curl -L https://download.tarantool.org/tarantool/modules/gpgkey | apt-key add - \
+    && echo "deb https://download.tarantool.org/tarantool/release/series-2${gc64}/ubuntu/ $(lsb_release -s -c) main" >> /etc/apt/sources.list.d/tarantool_2.list \
+    && echo "deb-src https://download.tarantool.org/tarantool/release/series-2${gc64}/ubuntu/ $(lsb_release -s -c) main" >> /etc/apt/sources.list.d/tarantool_2.list \
+    && echo "deb https://download.tarantool.org/tarantool/modules/ubuntu/ $(lsb_release -s -c) main" >> /etc/apt/sources.list.d/tarantool_2.list \
+    && echo "deb-src https://download.tarantool.org/tarantool/modules/ubuntu/ $(lsb_release -s -c) main" >> /etc/apt/sources.list.d/tarantool_2.list \
+    && apt update \
+    && apt show -a tarantool \
+    && apt -y install tarantool=${TNT_VER} \
+    && apt -y install tarantool-dev=${TNT_VER} \
     && apt clean \
-    && set -x \
     && tarantoolctl rocks install lua-term \
     && tarantoolctl rocks install avro-schema $LUAROCK_AVRO_SCHEMA_VERSION \
     && tarantoolctl rocks install expirationd $LUAROCK_EXPERATIOND_VERSION \
