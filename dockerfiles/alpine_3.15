@@ -157,6 +157,8 @@ RUN set -x \
         musl-dev \
         cyrus-sasl-dev \
         libev-dev \
+        libucontext \
+        libucontext-dev \
         libressl-dev \
         wget \
         unzip \
@@ -221,7 +223,7 @@ RUN set -x \
 
 # gh-170: needed for luarocks
 RUN apk update \
-    && apk add wget git
+    && apk add wget git libucontext
 
 RUN mkdir -p /var/lib/tarantool \
     && chown tarantool:tarantool /var/lib/tarantool \
