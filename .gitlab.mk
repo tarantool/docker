@@ -1,4 +1,4 @@
-TNT_VER=$(shell cat versions/${OS}_${DIST}_${VER})
+TNT_VER=$(shell cat versions/$${VER:0:1}/${OS}_${DIST}_${VER})
 ROCKS_INSTALLER?='tarantoolctl rocks'
 ENABLE_BUNDLED_LIBYAML?='ON'
 IMAGE?=tarantool/tarantool
