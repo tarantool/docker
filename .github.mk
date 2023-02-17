@@ -20,7 +20,7 @@ build:
 	docker run --rm --name tarantool_${TAG} -p ${PORT}:${PORT} -d ${IMAGE}:${TAG}
 	docker exec -t tarantool_${TAG} tarantool_is_up
 	docker stop tarantool_${TAG}
-	if [ -n "${GITLAB_CI}" ] ; then \
+	if [ -n "${GITHUB_CI}" ] ; then \
 		docker push ${IMAGE}:${TAG} ; \
 		if [ -n "${TAG_LATEST}" ] ; then \
 			docker tag ${IMAGE}:${TAG} ${IMAGE}:${TAG_LATEST} ; \

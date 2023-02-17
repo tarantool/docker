@@ -407,7 +407,7 @@ A maintainer is responsible for merging the PR.
 Say, we have updated 'dockerfiles/alpine_3.9' and want to check it:
 
 ```sh
-$ TAG=2 OS=alpine DIST=3.9 VER=2.x PORT=5200 make -f .gitlab.mk build
+$ TAG=2 OS=alpine DIST=3.9 VER=2.x PORT=5200 make -f .github.mk build
 $ docker run -it tarantool/tarantool:2
 ...perform a test...
 ```
@@ -513,6 +513,6 @@ Example:
 ```console
 $ export TAG=2
 $ export OS=alpine DIST=3.9 VER=2.x  # double check the values!
-$ PORT=5200 make -f .gitlab.mk build
+$ PORT=5200 make -f .github.mk build
 $ docker push tarantool/tarantool:${TAG}
 ```
