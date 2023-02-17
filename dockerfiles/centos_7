@@ -24,17 +24,7 @@ ENV GC64=${GC64:-false} \
 COPY files/luarocks-config_centos.lua /usr/local/etc/luarocks/config-5.1.lua
 COPY files/luarocks-config.lua /usr/local/etc/tarantool/rocks/config-5.1.lua
 
-# Set yum repository for Postgresql 9.6 since this version
-# has been removed from pgdg repository.
-RUN echo $'[pg]\n\
-name=PostgreSQL 9.6 RHEL/CentOS $releasever - $basearch\n\
-baseurl=https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-$basearch\n\
-enabled=1\n\
-gpgcheck=1\n\
-gpgkey=https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG-96\n\
-repo_gpgcheck = 1\n'\
->> /etc/yum.repos.d/pg.repo \
-    && groupadd tarantool \
+RUN groupadd tarantool \
     && adduser -g tarantool tarantool \
     && yum install -y epel-release \
     && if [ "$GC64" = "OFF" ]; then export gc64=""; else export gc64="-gc64"; fi \
@@ -73,7 +63,7 @@ gpgcheck=0\n" > /etc/yum.repos.d/tarantool_2.repo \
     && yum -y install tarantool-${TARANTOOL_VERSION} \
         tarantool-devel-${TARANTOOL_VERSION} \
         mariadb-libs \
-        postgresql96-libs \
+        postgresql-libs \
         cyrus-sasl \
         libev \
         proj \
@@ -85,7 +75,7 @@ gpgcheck=0\n" > /etc/yum.repos.d/tarantool_2.repo \
         cmake \
         make \
         gcc-c++ \
-        postgresql96-devel \
+        postgresql-devel \
         cyrus-sasl-devel \
         libev-devel \
         wget \
@@ -115,7 +105,7 @@ gpgcheck=0\n" > /etc/yum.repos.d/tarantool_2.repo \
     && yum -y remove \
         git \
         cmake \
-        postgresql96-devel \
+        postgresql-devel \
         cyrus-sasl-devel \
         libev-devel \
         wget \
