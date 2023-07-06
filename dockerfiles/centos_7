@@ -108,7 +108,6 @@ gpgcheck=0\n" > /etc/yum.repos.d/tarantool_2.repo \
         postgresql-devel \
         cyrus-sasl-devel \
         libev-devel \
-        wget \
         proj-devel \
         geos-devel \
         openssl-devel \
