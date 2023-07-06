@@ -35,6 +35,7 @@ RUN set -x \
     libproj-dev \
     gosu \
     curl \
+    wget \
     gnupg2 \
     ca-certificates \
     apt-transport-https \
@@ -66,7 +67,7 @@ RUN set -x \
     && tarantoolctl rocks install prometheus $LUAROCK_TARANTOOL_PROMETHEUS_VERSION \
     && tarantoolctl rocks install gis $LUAROCK_TARANTOOL_GIS_VERSION \
     && tarantoolctl rocks install gperftools $LUAROCK_TARANTOOL_GPERFTOOLS_VERSION \
-    && apt purge -y unzip curl git gcc cmake \
+    && apt purge -y unzip git gcc cmake \
     && apt -y autoremove \
     && rm -rf /var/lib/apt/lists/
 
