@@ -224,7 +224,7 @@ RUN set -x \
 
 # gh-170: needed for luarocks and etc
 RUN apk update \
-    && apk add wget git libucontext tzdata
+    && apk add wget curl git libucontext tzdata
 
 RUN mkdir -p /var/lib/tarantool \
     && chown tarantool:tarantool /var/lib/tarantool \
