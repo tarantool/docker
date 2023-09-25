@@ -195,8 +195,8 @@ This `console` doesn't require authentication, because it uses a local
 Unix socket in the container to connect to Tarantool. However, it requires
 you to have direct access to the container.
 
-If you need to access a remote console via TCP/IP, use the `tarantoolctl` utility
-as explained [here](https://www.tarantool.io/en/doc/latest/reference/tarantoolctl/).
+If you need to access a remote console via TCP/IP, use the `tt` utility
+as explained [here](https://www.tarantool.io/en/doc/latest/reference/tooling/tt_cli/).
 
 ### Start a master-master replica set
 
