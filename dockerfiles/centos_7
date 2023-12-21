@@ -17,7 +17,6 @@ ENV GC64=${GC64:-false} \
     LUAROCK_TARANTOOL_PG_VERSION=2.0.2 \
     LUAROCK_TARANTOOL_MYSQL_VERSION=2.1.3 \
     LUAROCK_TARANTOOL_GIS_VERSION=1.0.1 \
-    LUAROCK_TARANTOOL_PROMETHEUS_VERSION=1.0.4 \
     LUAROCK_TARANTOOL_GPERFTOOLS_VERSION=1.0.1 \
     GOSU_VERSION=1.14
 
@@ -97,7 +96,6 @@ gpgcheck=0\n" > /etc/yum.repos.d/tarantool_2.repo \
     && tarantoolctl rocks install mysql $LUAROCK_TARANTOOL_MYSQL_VERSION \
     && tarantoolctl rocks install memcached $LUAROCK_MEMCACHED_VERSION \
     && tarantoolctl rocks install metrics $LUAROCK_METRICS_VERSION \
-    && tarantoolctl rocks install prometheus $LUAROCK_TARANTOOL_PROMETHEUS_VERSION \
     && tarantoolctl rocks install gis $LUAROCK_TARANTOOL_GIS_VERSION \
     && tarantoolctl rocks install gperftools $LUAROCK_TARANTOOL_GPERFTOOLS_VERSION \
     && : "---------- remove build deps ----------" \
