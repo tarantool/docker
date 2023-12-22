@@ -2,7 +2,8 @@ FROM ubuntu:20.04
 LABEL org.opencontainers.image.authors="artembo@me.com; piligrim@rootnix.net"
 
 ARG TNT_VER \
-    GC64
+    GC64 \
+    ROCKS_INSTALLER
 
 ENV GC64=${GC64:-OFF} \
     TARANTOOL_VERSION=${TNT_VER} \
@@ -52,19 +53,19 @@ RUN set -x \
     && apt -y install tarantool=${TNT_VER} \
     && apt -y install tarantool-dev=${TNT_VER} \
     && apt clean \
-    && tarantoolctl rocks install lua-term \
-    && tarantoolctl rocks install avro-schema $LUAROCK_AVRO_SCHEMA_VERSION \
-    && tarantoolctl rocks install expirationd $LUAROCK_EXPERATIOND_VERSION \
-    && tarantoolctl rocks install queue $LUAROCK_QUEUE_VERSION \
-    && tarantoolctl rocks install connpool $LUAROCK_CONNPOOL_VERSION \
-    && tarantoolctl rocks install vshard $LUAROCK_VSHARD_VERSION \
-    && tarantoolctl rocks install http $LUAROCK_HTTP_VERSION \
-    && tarantoolctl rocks install pg $LUAROCK_TARANTOOL_PG_VERSION \
-    && tarantoolctl rocks install mysql $LUAROCK_TARANTOOL_MYSQL_VERSION \
-    && tarantoolctl rocks install memcached $LUAROCK_MEMCACHED_VERSION \
-    && tarantoolctl rocks install metrics $LUAROCK_METRICS_VERSION \
-    && tarantoolctl rocks install gis $LUAROCK_TARANTOOL_GIS_VERSION \
-    && tarantoolctl rocks install gperftools $LUAROCK_TARANTOOL_GPERFTOOLS_VERSION \
+    && ${ROCKS_INSTALLER} install lua-term \
+    && ${ROCKS_INSTALLER} install avro-schema $LUAROCK_AVRO_SCHEMA_VERSION \
+    && ${ROCKS_INSTALLER} install expirationd $LUAROCK_EXPERATIOND_VERSION \
+    && ${ROCKS_INSTALLER} install queue $LUAROCK_QUEUE_VERSION \
+    && ${ROCKS_INSTALLER} install connpool $LUAROCK_CONNPOOL_VERSION \
+    && ${ROCKS_INSTALLER} install vshard $LUAROCK_VSHARD_VERSION \
+    && ${ROCKS_INSTALLER} install http $LUAROCK_HTTP_VERSION \
+    && ${ROCKS_INSTALLER} install pg $LUAROCK_TARANTOOL_PG_VERSION \
+    && ${ROCKS_INSTALLER} install mysql $LUAROCK_TARANTOOL_MYSQL_VERSION \
+    && ${ROCKS_INSTALLER} install memcached $LUAROCK_MEMCACHED_VERSION \
+    && ${ROCKS_INSTALLER} install metrics $LUAROCK_METRICS_VERSION \
+    && ${ROCKS_INSTALLER} install gis $LUAROCK_TARANTOOL_GIS_VERSION \
+    && ${ROCKS_INSTALLER} install gperftools $LUAROCK_TARANTOOL_GPERFTOOLS_VERSION \
     && apt purge -y unzip git gcc cmake \
     && apt -y autoremove \
     && rm -rf /var/lib/apt/lists/
