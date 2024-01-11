@@ -273,11 +273,22 @@ local function wrapper_cfg(override)
 
     local metrics_port = tonumber(os.getenv('TARANTOOL_PROMETHEUS_DEFAULT_METRICS_PORT')) or 0
     if metrics_port > 0 then
-        require('metrics').enable_default_metrics()
-        local prometheus = require('metrics.plugins.prometheus')
-        local httpd = require('http.server').new('0.0.0.0', metrics_port)
-        httpd:route( { path = '/metrics' }, prometheus.collect_http)
-        httpd:start()
+        local ok, http_server = pcall(require, 'http.server')
+        if not ok then
+            local warn_str = [[****************************************************
+WARNING: The "http" module is not found!
+         Exposing the Prometheus metrics endpoint
+         is impossible without HTTP server.
+         Please install the module.
+****************************************************]]
+            log.warn('\n' .. warn_str)
+        else
+            require('metrics').enable_default_metrics()
+            local prometheus = require('metrics.plugins.prometheus')
+            local httpd = http_server.new('0.0.0.0', metrics_port)
+            httpd:route({path = '/metrics'}, prometheus.collect_http)
+            httpd:start()
+        end
     end
 end
 
