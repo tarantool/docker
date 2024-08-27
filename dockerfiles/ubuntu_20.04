@@ -53,6 +53,7 @@ RUN set -x \
     && apt -y install tarantool=${TNT_VER} \
     && apt -y install tarantool-dev=${TNT_VER} \
     && apt clean \
+    && mkdir /.rocks \
     && ${ROCKS_INSTALLER} install lua-term \
     && ${ROCKS_INSTALLER} install avro-schema $LUAROCK_AVRO_SCHEMA_VERSION \
     && ${ROCKS_INSTALLER} install expirationd $LUAROCK_EXPERATIOND_VERSION \
