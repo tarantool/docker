@@ -24,6 +24,21 @@ ENV GC64=${GC64:-false} \
 COPY files/luarocks-config_centos.lua /usr/local/etc/luarocks/config-5.1.lua
 COPY files/luarocks-config.lua /usr/local/etc/tarantool/rocks/config-5.1.lua
 
+# Set repos url to archive.kernel.org because centos 7 reached EOL and
+# original repos are not available anymore
+RUN if [ $(uname -m) == 'x86_64' ]; then \
+        sed -i '/mirrorlist/d' /etc/yum.repos.d/* \
+        && sed -i 's,#baseurl=http://mirror.centos.org,baseurl=http://archive.kernel.org,g' /etc/yum.repos.d/* \
+        && sed -i 's,# baseurl=http://mirror.centos.org,baseurl=http://archive.kernel.org,g' /etc/yum.repos.d/* \
+        && sed -i 's,$releasever/,7.9.2009/,g' /etc/yum.repos.d/*; \
+    elif [ $(uname -m) == 'aarch64' ]; then \
+        sed -i '/mirrorlist/d' /etc/yum.repos.d/* \
+        && sed -i 's,#baseurl=http://mirror.centos.org,baseurl=http://archive.kernel.org,g' /etc/yum.repos.d/* \
+        && sed -i 's,# baseurl=http://mirror.centos.org,baseurl=http://archive.kernel.org,g' /etc/yum.repos.d/* \
+        && sed -i 's,$releasever/,7.9.2009/,g' /etc/yum.repos.d/* \
+        && sed -i 's,altarch/,centos/altarch/,g' /etc/yum.repos.d/*; \
+    fi
+
 RUN groupadd tarantool \
     && adduser -g tarantool tarantool \
     && yum install -y epel-release \
