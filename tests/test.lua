@@ -1,0 +1,17 @@
+avroschema = require('avro_schema')
+expirationd = require('expirationd')
+queue = require('queue')
+connpool = require('connpool')
+vshard = require('vshard')
+http_request = require("http.server")
+pg = require('pg')
+mysql = require('mysql')
+memcached = require('memcached')
+metrics = require('metrics')
+gis = require('gis')
+gperftools = require('gperftools')
+
+tarantool = require('tarantool')
+print(tarantool.version)
+
+print(require"ffi".abi"gc64")
